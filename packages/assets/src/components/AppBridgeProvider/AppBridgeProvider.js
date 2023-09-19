@@ -26,7 +26,7 @@ export default function AppBridgeProvider({children}) {
         }}
         navigationLinks={[
           {
-            label: 'Samples',
+            label: 'Notifications',
             destination: '/samples'
           },
           {

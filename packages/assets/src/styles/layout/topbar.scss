@@ -53,13 +53,14 @@
       color: $primaryDarkColor;
     }
     > * {
-      margin-right: 1.2rem;
+      margin-right: 0.6rem;
     }
   }
 
   // top right icons
   .Avada-TopBar__Icons {
     margin-top: 0.4rem;
+    margin-right: 4rem;
 
     .Polaris-Button--plain:active:not(.Polaris-Button--iconOnly) > .Polaris-Button__Content {
       background: transparent;

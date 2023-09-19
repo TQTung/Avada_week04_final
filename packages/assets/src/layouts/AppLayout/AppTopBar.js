@@ -1,22 +1,11 @@
 import React from 'react';
-import {Button, DisplayText, Icon, Link, Stack, Thumbnail, TopBar} from '@shopify/polaris';
+import {Button, DisplayText, Icon, Link, Stack, TopBar} from '@shopify/polaris';
 import PropTypes from 'prop-types';
-import {
-  BugMajor,
-  MobileCancelMajor,
-  MobileHamburgerMajor,
-  PaymentsMajor
-} from '@shopify/polaris-icons';
-import isLocal from '@assets/helpers/isLocal';
-import {docLink} from '@assets/config/menuLink';
-import InfoIcon from '@assets/resources/icons/info.svg';
-import NotificationIcon from '@assets/resources/icons/notification.svg';
-import {LOGO_URL, LOGO_WIDTH} from '@assets/config/theme';
+import {LOGO_WIDTH} from '@assets/config/theme';
 import '@assets/styles/layout/topbar.scss';
-import {isShopUpgradable} from '@assets/services/shopService';
-import {useStore} from '@assets/reducers/storeReducer';
-import useConfirmSheet from '@assets/hooks/popup/useConfirmSheet';
-import AppNewsSheet from '@assets/components/AppNews/AppNewsSheet';
+import {LOGO_AVADA} from '@assets/config/integration/appList';
+import {Avatar, TextStyle} from '@shopify/polaris';
+import {MobileCancelMajor, MobileHamburgerMajor} from '@shopify/polaris-icons';
 
 /**
  * @param {boolean} isNavOpen
@@ -25,11 +14,6 @@ import AppNewsSheet from '@assets/components/AppNews/AppNewsSheet';
  * @constructor
  */
 export default function AppTopBar({isNavOpen, toggleOpenNav}) {
-  const {state} = useStore();
-  const {shop} = state;
-
-  const {sheet: newsSheet, openSheet: openNewsSheet} = useConfirmSheet({Content: AppNewsSheet});
-
   return (
     <TopBar
       secondaryMenu={
@@ -38,37 +22,19 @@ export default function AppTopBar({isNavOpen, toggleOpenNav}) {
             <Button plain onClick={toggleOpenNav}>
               <Icon source={isNavOpen ? MobileCancelMajor : MobileHamburgerMajor} />
             </Button>
-            <img alt="Avada App Name" src={LOGO_URL} width={LOGO_WIDTH} />
+            <img alt="Avada App Name" src={LOGO_AVADA} width={LOGO_WIDTH} />
             <DisplayText size="small">
               <Link url="/" removeUnderline>
-                App Name
+                avada
               </Link>
             </DisplayText>
-            {isLocal && (
-              <Stack alignment="center">
-                <Button plain url="/dev_zone" icon={BugMajor} />
-              </Stack>
-            )}
           </div>
           <div className="Avada-TopBar__Icons">
-            <Stack alignment="center" spacing="extraTight">
-              <Button plain url={docLink} external>
-                <Thumbnail source={InfoIcon} size="small" alt="" />
-              </Button>
-              <Button plain onClick={() => openNewsSheet()}>
-                <Thumbnail source={NotificationIcon} size="small" alt="" />
-              </Button>
+            <Stack alignment="center" spacing="tight">
+              <Avatar initials="A" size="small" />
+              <TextStyle>Avada</TextStyle>
             </Stack>
           </div>
-          {isShopUpgradable(shop) && (
-            <Button url="/subscription">
-              <Stack alignment="center">
-                <Icon source={PaymentsMajor} />
-                <Stack.Item>Subscription</Stack.Item>
-              </Stack>
-            </Button>
-          )}
-          {newsSheet}
         </div>
       }
     />
